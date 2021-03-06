@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'reusable_card.dart';
+import 'package:ticker/reusable_text.dart';
 
 class Input extends StatefulWidget {
   Input({Key key, this.title}) : super(key: key);
@@ -18,31 +20,40 @@ class _InputState extends State<Input> {
       body: Center(
         child: Column(
           children: [
+            ReusableText("Work Time"),
             Expanded(
-              flex: 1,
               child: Row(
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: ReusableCard(),
+                    child: ReusableCard(Color(0XFF1D1E33)),
                   ),
-                  Expanded(flex: 1, child: ReusableCard()),
+                  Expanded(
+                    flex: 1,
+                    child: ReusableCard(Color(0XFF1D1E33)),
+                  ),
                 ],
               ),
             ),
+            ReusableText("Rest"),
             Expanded(
-              flex: 1,
               child: Row(
                 children: [
-                  Expanded(flex: 1, child: ReusableCard()),
-                  Expanded(flex: 1, child: ReusableCard()),
+                  Expanded(
+                    child: ReusableCard(Color(0XFF1D1E33)),
+                  ),
+                  Expanded(
+                    child: ReusableCard(Color(0XFF1D1E33)),
+                  ),
                 ],
               ),
             ),
+            ReusableText("Sets"),
             Expanded(
               child: Row(
                 children: [
-                  Expanded(child: ReusableCard()),
+                  Expanded(
+                    child: ReusableCard(Color(0XFF1D1E33)),
+                  ),
                 ],
               ),
             ),
@@ -150,23 +161,6 @@ class _InputState extends State<Input> {
         ),*/
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-class ReusableCard extends StatelessWidget {
-  const ReusableCard({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Color(0XFF1D1E33),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      margin: EdgeInsets.all(15.0),
     );
   }
 }
