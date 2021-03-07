@@ -14,6 +14,8 @@ class Input extends StatefulWidget {
 class _InputState extends State<Input> {
   int minutes = 0;
   int seconds = 0;
+  int restMinutes = 0;
+  int restSeconds = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +42,18 @@ class _InputState extends State<Input> {
                         time: minutes,
                         onPressedMinus: () {
                           setState(() {
-                            minutes--;
+                            minutes == 0 ? minutes = 59 : minutes--;
                           });
                         },
                         onPressedAdd: () {
                           setState(() {
-                            minutes++;
+                            minutes == 59 ? minutes = 0 : minutes++;
                           });
                         },
                       ),
                     ),
                   ),
                   Expanded(
-                    flex: 1,
                     child: ReusableCard(
                       color: Color(0XFF1D1E33),
                       cardChild: ReusableColumn(
@@ -60,12 +61,12 @@ class _InputState extends State<Input> {
                         time: seconds,
                         onPressedMinus: () {
                           setState(() {
-                            seconds--;
+                            seconds == 0 ? seconds = 59 : seconds--;
                           });
                         },
                         onPressedAdd: () {
                           setState(() {
-                            seconds++;
+                            seconds == 59 ? seconds = 0 : seconds++;
                           });
                         },
                       ),
@@ -82,10 +83,42 @@ class _InputState extends State<Input> {
               child: Row(
                 children: [
                   Expanded(
-                    child: ReusableCard(color: Color(0XFF1D1E33)),
+                    child: ReusableCard(
+                      color: Color(0XFF1D1E33),
+                      cardChild: ReusableColumn(
+                        titleText: "Minutes",
+                        time: restMinutes,
+                        onPressedMinus: () {
+                          setState(() {
+                            restMinutes == 0 ? restMinutes = 59 : restMinutes--;
+                          });
+                        },
+                        onPressedAdd: () {
+                          setState(() {
+                            restMinutes == 59 ? restMinutes = 0 : restMinutes++;
+                          });
+                        },
+                      ),
+                    ),
                   ),
                   Expanded(
-                    child: ReusableCard(color: Color(0XFF1D1E33)),
+                    child: ReusableCard(
+                      color: Color(0XFF1D1E33),
+                      cardChild: ReusableColumn(
+                        titleText: "Seconds",
+                        time: restSeconds,
+                        onPressedMinus: () {
+                          setState(() {
+                            restSeconds == 0 ? restSeconds = 59 : restSeconds--;
+                          });
+                        },
+                        onPressedAdd: () {
+                          setState(() {
+                            restSeconds == 59 ? restSeconds = 0 : restSeconds++;
+                          });
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),
