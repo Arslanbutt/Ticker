@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'reusable_card.dart';
 import 'package:ticker/reusable_text.dart';
-import 'round_icon_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ticker/reusable_column.dart';
 
 class Input extends StatefulWidget {
   Input({Key key, this.title}) : super(key: key);
@@ -36,41 +35,41 @@ class _InputState extends State<Input> {
                   Expanded(
                     child: ReusableCard(
                       color: Color(0XFF1D1E33),
-                      cardChild: Column(
-                        children: [
-                          ReusableText(
-                            title: "Minutes",
-                            fontSize: 16.0,
-                            marginTop: 15.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          ReusableText(
-                            title: minutes.toString(),
-                            fontSize: 32.0,
-                            fontWeight: FontWeight.w900,
-                            marginTop: 10.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              RoundIconButton(
-                                icon: (FontAwesomeIcons.plus),
-                              ),
-                              SizedBox(
-                                width: 20.0,
-                              ),
-                              RoundIconButton(
-                                icon: (FontAwesomeIcons.minus),
-                              ),
-                            ],
-                          ),
-                        ],
+                      cardChild: ReusableColumn(
+                        titleText: "Minutes",
+                        time: minutes,
+                        onPressedMinus: () {
+                          setState(() {
+                            minutes--;
+                          });
+                        },
+                        onPressedAdd: () {
+                          setState(() {
+                            minutes++;
+                          });
+                        },
                       ),
                     ),
                   ),
                   Expanded(
                     flex: 1,
-                    child: ReusableCard(color: Color(0XFF1D1E33)),
+                    child: ReusableCard(
+                      color: Color(0XFF1D1E33),
+                      cardChild: ReusableColumn(
+                        titleText: "Seconds",
+                        time: seconds,
+                        onPressedMinus: () {
+                          setState(() {
+                            seconds--;
+                          });
+                        },
+                        onPressedAdd: () {
+                          setState(() {
+                            seconds++;
+                          });
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),
