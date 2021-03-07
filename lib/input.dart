@@ -16,6 +16,7 @@ class _InputState extends State<Input> {
   int seconds = 0;
   int restMinutes = 0;
   int restSeconds = 0;
+  int sets = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +130,34 @@ class _InputState extends State<Input> {
             ),
             Expanded(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: ReusableCard(color: Color(0XFF1D1E33)),
+                    child: ReusableCard(
+                      color: Color(0XFF1D1E33),
+                      cardChild: Column(
+                        children: [
+                          ReusableText(
+                            title: sets.toString(),
+                            fontSize: 24.0,
+                            marginTop: 10.0,
+                            fontWeight: FontWeight.w900,
+                          ),
+                          Slider(
+                            value: sets.toDouble(),
+                            min: 1,
+                            max: 20,
+                            onChanged: (newValue) {
+                              setState(() {
+                                sets = newValue.toInt();
+                              });
+                            },
+                            activeColor: Color(0XFFEB1555),
+                            inactiveColor: Color(0XFF8D8E98),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -141,17 +167,18 @@ class _InputState extends State<Input> {
                 children: [
                   Expanded(
                     child: Container(
+                      height: 80,
                       decoration: BoxDecoration(
                         color: Color(0XFF1D1E33),
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       margin: EdgeInsets.all(15.0),
                       child: FlatButton(
-                        color: Color(0XFF1D1E33),
+                        color: Color(0XFFEB1555),
                         child: Text(
                           "Start",
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 24.0,
                             color: Colors.white,
                           ),
                         ),
@@ -164,80 +191,6 @@ class _InputState extends State<Input> {
             ),
           ],
         ),
-        /*child: Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: Column(
-            children: [
-              Text(
-                "Work",
-                style: TextStyle(
-                  fontSize: 20.0,
-                ),
-              ),
-              SizedBox(
-                height: 25.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 50,
-                    child: NumberPicker.integer(
-                      decoration: new BoxDecoration(
-                        border: new Border(
-                          top: new BorderSide(
-                            style: BorderStyle.solid,
-                            color: Colors.blue,
-                          ),
-                          bottom: new BorderSide(
-                            style: BorderStyle.solid,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                      initialValue: _currentValue,
-                      minValue: 0,
-                      maxValue: 59,
-                      zeroPad: true,
-                      infiniteLoop: true,
-                      highlightSelectedValue: true,
-                      onChanged: (newValue) =>
-                          setState(() => _currentValue = newValue - 1),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Container(
-                    height: 50,
-                    child: NumberPicker.integer(
-                      decoration: new BoxDecoration(
-                        border: new Border(
-                          top: new BorderSide(
-                            style: BorderStyle.solid,
-                            color: Colors.blue,
-                          ),
-                          bottom: new BorderSide(
-                            style: BorderStyle.solid,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                      initialValue: _currentValue,
-                      minValue: 0,
-                      maxValue: 59,
-                      zeroPad: true,
-                      infiniteLoop: true,
-                      highlightSelectedValue: true,
-                      onChanged: (newValue) =>
-                          setState(() => _currentValue = newValue - 1),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),*/
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
