@@ -3,6 +3,7 @@ import 'package:ticker/timer_page.dart';
 import 'reusable_card.dart';
 import 'package:ticker/reusable_text.dart';
 import 'package:ticker/reusable_column.dart';
+import 'package:toast/toast.dart';
 
 class Input extends StatefulWidget {
   Input({Key key, this.title}) : super(key: key);
@@ -184,14 +185,22 @@ class _InputState extends State<Input> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return TimerPage();
-                              },
-                            ),
-                          );
+                          if (minutes > 0 || seconds > 0) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return TimerPage(
+                                    workSeconds: seconds,
+                                    sets: sets,
+                                  );
+                                },
+                              ),
+                            );
+                          } else
+                            Toast.show("Enter a work time", context,
+                                duration: Toast.LENGTH_SHORT,
+                                gravity: Toast.BOTTOM);
                         },
                       ),
                     ),
