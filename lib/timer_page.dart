@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_timer/simple_timer.dart';
+import 'rest_timer.dart';
 
 class TimerPage extends StatefulWidget {
-  final int workSeconds;
+  final Duration workDuration;
+  final Duration restDuration;
   final int sets;
 
-  TimerPage({this.workSeconds, this.sets = 1});
+  TimerPage({this.workDuration, this.sets = 1, this.restDuration});
 
   @override
   _TimerPageState createState() => _TimerPageState();
@@ -17,22 +19,34 @@ class _TimerPageState extends State<TimerPage>
   TimerController _timerController;
 
   Duration duration;
-  int looper;
 
   @override
   void initState() {
     _timerController = TimerController(this);
+    duration = widget.workDuration;
     //This line make sure that build method is called before starting timer
-    duration = new Duration(seconds: widget.workSeconds);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       //_timerController.start();
-      print("inside function call");
+      //print("inside function call");
       for (int i = 0; i < widget.sets;) {
-        print("Inside loop");
+        //print("Inside loop");
         if (i == 0) {
           await testTimer();
           i++;
         } else {
+          if (widget.restDuration > Duration(seconds: 0)) {
+            // await Future.delayed(widget.restDuration);
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return RestTimerPage(
+                    restDuration: widget.restDuration,
+                  );
+                },
+              ),
+            );
+          }
           await testTimerR();
           i++;
         }
@@ -44,13 +58,22 @@ class _TimerPageState extends State<TimerPage>
 
   Future<void> testTimer() async {
     _timerController.start();
-    return Future.delayed(Duration(seconds: widget.workSeconds));
-    ;
+    return Future.delayed(widget.workDuration);
+  }
+
+  Future<void> testTimerRest() async {
+    _timerController.start();
+    return Future.delayed(widget.restDuration);
+  }
+
+  Future<void> testTimerRRest() async {
+    _timerController.restart();
+    return Future.delayed(widget.restDuration);
   }
 
   Future<void> testTimerR() async {
     _timerController.restart();
-    return Future.delayed(Duration(seconds: widget.workSeconds));
+    return Future.delayed(widget.workDuration);
   }
 
   @override

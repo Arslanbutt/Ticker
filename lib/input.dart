@@ -20,6 +20,9 @@ class _InputState extends State<Input> {
   int restSeconds = 0;
   int sets = 1;
 
+  Duration workDuration;
+  Duration restDuration;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,13 +189,18 @@ class _InputState extends State<Input> {
                         ),
                         onPressed: () {
                           if (minutes > 0 || seconds > 0) {
+                            workDuration =
+                                Duration(seconds: seconds, minutes: minutes);
+                            restDuration = Duration(
+                                seconds: restSeconds, minutes: restMinutes);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
                                   return TimerPage(
-                                    workSeconds: seconds,
+                                    workDuration: workDuration,
                                     sets: sets,
+                                    restDuration: restDuration,
                                   );
                                 },
                               ),
